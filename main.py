@@ -1,5 +1,5 @@
 """
-Sound Finder
+Sound Finder by Agata Runowska-McMillan
 The app uses the Deezer API to search for songs using keywords, allows users to save search results into
 custom playlists, and provides features like random song generation, playlist removal, and search history management.
 
@@ -39,7 +39,7 @@ def search_by_keyword():
         else:
             print("No songs found.")  # inform the user if no songs found
     else:
-        print("Failed to retrieve songs. Please try again")  # inform the user if API call unsuccessful
+        raise Exception("Failed to retrieve songs.")  # inform the user if API call unsuccessful
 
 
 def save_search_results_to_playlist(search_string, search_results_data):
@@ -58,7 +58,7 @@ def save_search_results_to_playlist(search_string, search_results_data):
         if not playlist_name:
             print("Playlist name cannot be empty. Please enter a name.")
         # validate that playlist doesn't already exists
-        elif os.path.exists(f"{playlist_name}.txt"):
+        elif os.path.exists(os.path.join(PLAYLISTS_FOLDER, f"{playlist_name}.txt")):
             print(f"Playlist {playlist_name} already exists. Enter another playlist name.")
         else:
             playlist_file = os.path.join(PLAYLISTS_FOLDER, f"{playlist_name}.txt")
@@ -113,9 +113,11 @@ def remove_playlist():
 
 def exit_app():
     """Exit the application"""
-    global is_app_running  # call global variable is_app_running and change to false, it will be used by menu function
-    is_app_running = False
-    print(get_app_status())  # print app status to confirm the app has been exited
+    confirmation = input("Are you sure you want to exit? (Y/N) ").strip().lower()
+    if confirmation == "y":
+        global is_app_running  # call global variable is_app_running, change to false, it will be used by menu function
+        is_app_running = False
+        print(get_app_status())  # print app status to confirm the app has been exited
 
 
 def get_app_status():
