@@ -1,5 +1,5 @@
 """
-Sound Finder by Agata Runowska-McMillan
+Sound Finder
 The app uses the Deezer API to search for songs using keywords, allows users to save search results into
 custom playlists, and provides features like random song generation, playlist removal, and search history management.
 
